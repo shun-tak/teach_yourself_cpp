@@ -6,6 +6,7 @@ int main() {
   int feet;
   int inch;
 
+  // 0が入力されるまで繰り返し
   do {
     cout << "フィート数を入力(0で終了): ";
     cin >> feet;

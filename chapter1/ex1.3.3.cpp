@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+/* 最大公約数を求める
+ * 入力: int a, int b
+ * 出力 int aとbの最大公約数
+ */
 int gcd(int a, int b) {
   if (!b) return a;
   return gcd(b, a%b);
