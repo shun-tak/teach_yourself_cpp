@@ -1,9 +1,12 @@
+/* timer for Unix, Linux and Mac
+参考: [High Resolution Timer](http://www.songho.ca/misc/timer/timer.html)
+*/
 #include <iostream>
-#include <ctime>
+#include <sys/time.h> // for gettimeofday()
 using namespace std;
 
 class timer {
-  clock_t start;
+  timeval start;
 public:
   timer();
   ~timer();
@@ -11,14 +14,18 @@ public:
 
 timer::timer()
 {
-  start = clock();
+  gettimeofday(&start, NULL);
 }
 
 timer::~timer()
 {
-  clock_t end;
-  end = clock();
-  cout << "経過クロック: " << ((double) end-start) << "\n";
+  timeval stop;
+  double elapsedTime;
+  gettimeofday(&stop, NULL);
+
+  elapsedTime = (stop.tv_sec - start.tv_sec) * 1000.0;      // sec to ms
+  elapsedTime += (stop.tv_usec - start.tv_usec) / 1000.0;   // us to ms
+  cout << elapsedTime << " ms.\n";
 }
 
 int main()
