@@ -2,24 +2,33 @@
 #include <ctime>
 using namespace std;
 
+class t_and_d {
+  time_t now;
+public:
+  t_and_d(time_t t);
+  void show();
+};
+
+t_and_d::t_and_d(time_t t)
+{
+  now = t;
+}
+
+void t_and_d::show()
+{
+  struct tm *local;
+  local = localtime(&now);
+
+  cout << (local->tm_year+1900) << "年" << (local->tm_mon+1) << "月"
+       << local->tm_mday << "日 " << local->tm_hour << ":"
+       << local->tm_min << ":" << local->tm_sec << "\n";
+}
+
 int main()
 {
-time_t timer;
- struct tm *local;
- struct tm *utc;
+  t_and_d ob(time(NULL));
 
- /* 現在時刻を取得 */
- timer = time(NULL);
-
- local = localtime(&timer); /* 地方時に変換 */
- printf("地方時: ");
- printf("%4d/", local->tm_year + 1900);
- printf("%2d/", local->tm_mon + 1);
- printf("%2d ", local->tm_mday);
- printf("%2d:", local->tm_hour);
- printf("%2d:", local->tm_min);
- printf("%2d", local->tm_sec);
- printf(" %d\n", local->tm_isdst);
+  ob.show();
 
  return 0;
 }
